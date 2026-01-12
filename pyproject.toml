@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "finalproject"
+version = "0.1.0"
+description = ""
+authors = ["Sergey Iguminov <Sergey.iguminov@yandex.ru>"]
+readme = "README.md"
+
+packages = [
+    {include = "valutatrade_hub"},
+    {include = "data"},
+]
+
+[tool.poetry.dependencies]
+python = ">=3.13"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.14.11"

@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "finalproject"
 version = "0.1.0"
-description = ""CLI application for trading fiat and cryptocurrencies"
+description = "CLI application for trading fiat and cryptocurrencies"
 authors = ["Sergey Iguminov <Sergey.iguminov@yandex.ru>"]
 readme = "README.md"
 

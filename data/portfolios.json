@@ -4,11 +4,15 @@
         "wallets": {
             "USD": {
                 "currency_code": "USD",
-                "balance": 1011.176
+                "balance": 1010.5826279
             },
             "RUB": {
                 "currency_code": "RUB",
                 "balance": 0.0
+            },
+            "BTC": {
+                "currency_code": "BTC",
+                "balance": 1e-05
             }
         }
     },
@@ -18,6 +22,32 @@
             "USD": {
                 "currency_code": "USD",
                 "balance": 1000.0
+            },
+            "RUB": {
+                "currency_code": "RUB",
+                "balance": 0.0
+            }
+        }
+    },
+    {
+        "user_id": 3,
+        "wallets": {
+            "USD": {
+                "currency_code": "USD",
+                "balance": 1000.0
+            },
+            "RUB": {
+                "currency_code": "RUB",
+                "balance": 0.0
+            }
+        }
+    },
+    {
+        "user_id": 4,
+        "wallets": {
+            "USD": {
+                "currency_code": "USD",
+                "balance": 1000.2570000000001
             },
             "RUB": {
                 "currency_code": "RUB",

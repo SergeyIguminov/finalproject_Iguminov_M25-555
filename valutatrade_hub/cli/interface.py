@@ -1,17 +1,20 @@
 import hashlib
-import json
 import random
 import shlex
 import string
 from datetime import datetime
-from pathlib import Path
+
+import valutatrade_hub.parser_service.api_clients as api_clients
+import valutatrade_hub.parser_service.storage as storage
+import valutatrade_hub.parser_service.updater as updater
 
 
+from valutatrade_hub.core.utils import save_json, load_json
 from valutatrade_hub.core.exceptions import (
     ApiRequestError,
     CurrencyNotFoundError,
 )
-from valutatrade_hub.core.usecases import buy, get_rate, sell
+from valutatrade_hub.core.usecases import buy, get_rate, sell, show_rates
 from valutatrade_hub.infra.settings import SettingsLoader
 
 
@@ -21,29 +24,6 @@ USERS_FILE = settings.get("USERS_FILE")
 PORTFOLIOS_FILE = settings.get("PORTFOLIOS_FILE")
 
 CURRENT_USER: dict | None = None
-
-
-def load_json(file_path) -> list | dict:
-    file_path = Path(file_path)
-    if not file_path.exists():
-        if file_path.name in ("users.json", "portfolios.json"):
-            return []
-        return {}
-    with file_path.open("r", encoding="utf-8") as f:
-        try:
-            return json.load(f)
-        except json.JSONDecodeError:
-            if file_path.name in ("users.json", "portfolios.json"):
-                return []
-            return {}
-
-
-def save_json(file_path, data) -> None:
-    file_path = Path(file_path)
-    file_path.parent.mkdir(parents=True, exist_ok=True)
-
-    with file_path.open("w", encoding="utf-8") as f:
-        json.dump(data, f, indent=4, ensure_ascii=False)
 
 
 def register(args: list[str]) -> None:
@@ -234,7 +214,7 @@ def show_help():
         "Вызов команд:\n"
         "<command> <--argument1> <input> <--argument2> <input> ...\n"
         "\n"
-        "Поддерживаемые коды валют: USD, EUR, GBP, RUB, BTC, ETH, SOL.\n"
+        "Поддерживаемые коды валют: USD, EUR, RUB, BTC, ETH.\n"
         "\n"
         "Список команд:\n"
         "\n"
@@ -468,6 +448,61 @@ def run_cli() -> None:
                     print(f"Ошибка API: {e}. Повторите попытку позже.")
                 except Exception as e:
                     print(f"Неожиданная ошибка: {e}")
+
+            elif command == "update-rates":
+                input_source = ""
+                special_args = ["--source"]
+                for i in range(1, len(args)):
+                    if i % 2 == 0 and args[i - 1] not in special_args:
+                        raise IOError(
+                            args[i - 1] + " " + args[i] + ". "
+                            "Чтобы получить справку, вызовите 'help'."
+                        )
+                    elif args[i - 1] in special_args and args[i] not in special_args:
+                        match args[i - 1]:
+                            case "--source":
+                                input_source = args[i]
+                                special_args.remove("--source")
+                    elif args[i - 1] in special_args and args[i] in special_args:
+                        raise IOError(
+                            args[i - 1] + " " + args[i] + ". "
+                            "Чтобы получить справку, вызовите 'help'."
+                        )
+                crypto_service = api_clients.CoinGeckoClient()
+                fiat_service = api_clients.ExchangeRateApiClient()
+                storage_service = storage.StorageUpdater()
+                updater_service = updater.RatesUpdater(
+                    crypto_service, fiat_service, storage_service, input_source
+                )
+                updater_service.run_update()
+            elif command == "show-rates":
+                input_currency = None
+                input_top = None
+                input_base = None
+                special_args = ["--currency", "--top", "--base"]
+                for i in range(1, len(args)):
+                    if i % 2 == 0 and args[i - 1] not in special_args:
+                        raise IOError(
+                            args[i - 1] + " " + args[i] + ". "
+                            "Чтобы получить справку, вызовите 'help'."
+                        )
+                    elif args[i - 1] in special_args and args[i] not in special_args:
+                        match args[i - 1]:
+                            case "--currency":
+                                input_currency = args[i]
+                                special_args.remove("--currency")
+                            case "--top":
+                                input_top = args[i]
+                                special_args.remove("--top")
+                            case "--base":
+                                input_base = args[i]
+                                special_args.remove("--base")
+                    elif args[i - 1] in special_args and args[i] in special_args:
+                        raise IOError(
+                            args[i - 1] + " " + args[i] + ". "
+                            "Чтобы получить справку, вызовите 'help'."
+                        )
+                show_rates(input_currency, input_top, input_base)
 
             else:
                 print(f"Неизвестная команда: {command}")

@@ -20,9 +20,11 @@ def log_action(action_name: str, verbose: bool = False):
 
             # Для get_rate - особый случай
             if func_name == "get_rate":
+                from_code = kwargs.get("from_code", "N/A")
+                to_code = kwargs.get("to_code", "N/A")
                 params = {
                     "username": "rate_service",
-                    "currency": f"{args[0] if len(args) > 0 else 'N/A'}_to_{args[1] if len(args) > 1 else 'N/A'}",
+                    "currency": f"{from_code}_to_{to_code}",
                     "amount": "N/A",
                     "rate": "N/A",
                     "base": "N/A",

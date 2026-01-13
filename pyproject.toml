@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "finalproject"
 version = "0.1.0"
-description = ""
+description = ""CLI application for trading fiat and cryptocurrencies"
 authors = ["Sergey Iguminov <Sergey.iguminov@yandex.ru>"]
 readme = "README.md"
 
@@ -14,7 +14,8 @@ packages = [
 project = "main:main"
 
 [tool.poetry.dependencies]
-python = ">=3.13"
+python = "^3.13"
+requests = "^2.32.5"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.14.11"

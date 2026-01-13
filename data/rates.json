@@ -1,10 +1,95 @@
 {
-    "RUB_USD": {
-        "rate": 0.01016,
-        "updated_at": "2026-01-13T22:11:12"
+    "pairs": {
+        "EUR_USD": {
+            "rate": 1.0786,
+            "updated_at": "2025-10-10T12:00:00Z",
+            "source": "ExchangeRate-API"
+        },
+        "BTC_USD": {
+            "rate": 94140.0,
+            "updated_at": "2026-01-14 01:08:12",
+            "source": "CoinGecko"
+        },
+        "USD_RUB": {
+            "rate": 78.55459544383346,
+            "updated_at": "2026-01-14 01:08:13",
+            "source": "ExchangeRate-API"
+        },
+        "USD_BTC": {
+            "rate": 1.0622477161674103e-05,
+            "updated_at": "2026-01-14 01:08:12",
+            "source": "CoinGecko"
+        },
+        "BTC_EUR": {
+            "rate": 80843.0,
+            "updated_at": "2026-01-14 01:08:12",
+            "source": "CoinGecko"
+        },
+        "EUR_BTC": {
+            "rate": 1.2369654762935566e-05,
+            "updated_at": "2026-01-14 01:08:12",
+            "source": "CoinGecko"
+        },
+        "BTC_RUB": {
+            "rate": 7413634.0,
+            "updated_at": "2026-01-14 01:08:12",
+            "source": "CoinGecko"
+        },
+        "RUB_BTC": {
+            "rate": 1.3488661565974257e-07,
+            "updated_at": "2026-01-14 01:08:12",
+            "source": "CoinGecko"
+        },
+        "ETH_USD": {
+            "rate": 3217.4,
+            "updated_at": "2026-01-14 01:08:12",
+            "source": "CoinGecko"
+        },
+        "USD_ETH": {
+            "rate": 0.00031080997078386275,
+            "updated_at": "2026-01-14 01:08:12",
+            "source": "CoinGecko"
+        },
+        "ETH_EUR": {
+            "rate": 2762.92,
+            "updated_at": "2026-01-14 01:08:12",
+            "source": "CoinGecko"
+        },
+        "EUR_ETH": {
+            "rate": 0.0003619359228642161,
+            "updated_at": "2026-01-14 01:08:12",
+            "source": "CoinGecko"
+        },
+        "ETH_RUB": {
+            "rate": 253373.0,
+            "updated_at": "2026-01-14 01:08:12",
+            "source": "CoinGecko"
+        },
+        "RUB_ETH": {
+            "rate": 3.946750443022737e-06,
+            "updated_at": "2026-01-14 01:08:12",
+            "source": "CoinGecko"
+        },
+        "RUB_USD": {
+            "rate": 0.01273,
+            "updated_at": "2026-01-14 01:08:13",
+            "source": "ExchangeRate-API"
+        },
+        "EUR_RUB": {
+            "rate": 91.99632014719411,
+            "updated_at": "2026-01-14 01:08:13",
+            "source": "ExchangeRate-API"
+        },
+        "RUB_EUR": {
+            "rate": 0.01087,
+            "updated_at": "2026-01-14 01:08:13",
+            "source": "ExchangeRate-API"
+        },
+        "RUB_RUB": {
+            "rate": 1.0,
+            "updated_at": "2026-01-14 01:08:13",
+            "source": "ExchangeRate-API"
+        }
     },
-    "USD_RUB": {
-        "rate": 98.42,
-        "updated_at": "2026-01-13T22:07:50"
-    }
+    "last_refresh": "2026-01-14 01:08:13"
 }

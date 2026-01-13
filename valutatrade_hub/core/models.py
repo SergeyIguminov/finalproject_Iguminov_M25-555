@@ -1,11 +1,20 @@
 import hashlib
 from datetime import datetime
 import os
+from valutatrade_hub.core.exceptions import (
+    InsufficientFundsError,
+)
 
 
 class User:
     """
     Класс, описывающий пользователя системы ValutaTrade Hub
+    Отвечает за хранение следующих данных:
+    - user_id <int> - уникальный идентификатор пользователя.
+    - username <str> - уникальное имя пользователя.
+    - hashed_password <str> - захэшированный пароль по 'SHA-256'.
+    - salt <str> - соль для кэширования.
+    - registration_date <datetime> - дата регистрации.
     """
 
     def __init__(
@@ -112,11 +121,11 @@ class Wallet:
         Принимает аргумент - сумму пополнения в виде числа
         """
 
-    if not isinstance(amount, (int, float)):
-        raise TypeError("Сумма пополнения должна быть числом.")
-    if amount <= 0:
-        raise ValueError("Сумма пополнения должна быть положительной.")
-    self._balance += float(amount)
+        if not isinstance(amount, (int, float)):
+            raise TypeError("Сумма пополнения должна быть числом.")
+        if amount <= 0:
+            raise ValueError("Сумма пополнения должна быть положительной.")
+        self._balance += float(amount)
 
     def get_balance_info(self) -> dict:
         """
@@ -133,15 +142,13 @@ class Wallet:
         Принимает аргумент - сумму снятия в виде числа.
         """
 
-    if not isinstance(amount, (int, float)):
-        raise TypeError("Сумма снятия должна быть числом.")
-    if amount <= 0:
-        raise ValueError("Сумма снятия должна быть положительной.")
-    if amount > self._balance:
-        raise ValueError(
-            "Сумма снятия не должна превышать баланс. Проверьте баланс кошелька и попробуйте снова"
-        )
-    self._balance -= float(amount)
+        if not isinstance(amount, (int, float)):
+            raise TypeError("Сумма снятия должна быть числом.")
+        if amount <= 0:
+            raise ValueError("Сумма снятия должна быть положительной.")
+        if amount > self._balance:
+            raise InsufficientFundsError(self._balance, amount, self.currency_code)
+        self._balance -= float(amount)
 
 
 class Portfolio:

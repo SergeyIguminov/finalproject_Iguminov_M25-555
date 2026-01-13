@@ -70,3 +70,6 @@ update-rates [--source coingecko|exchangerate]
 # Вспомогательные команды
 help — показать справку по всем командам
 exit — выйти из приложения
+
+## Демонастрация приложения (GIF)
+![ValutaTrade Hub Demo](https://github.com/SergeyIguminov/finalproject_Iguminov_M25-555/releases/download/gif_for_demonstration/finalproject.gif)]
